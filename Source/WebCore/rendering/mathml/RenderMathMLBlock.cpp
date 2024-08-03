@@ -275,6 +275,16 @@ void RenderMathMLBlock::styleDidChange(StyleDifference diff, const RenderStyle* 
         setNeedsLayoutAndPrefWidthsRecalc();
 }
 
+void RenderMathMLBlock::insertPositionedChildrenInContainingBlock()
+{
+    for (auto* child = firstChildBox(); child; child = child->nextSiblingBox()) {
+        if (child->isOutOfFlowPositioned()) {
+            child->containingBlock()->insertPositionedObject(*child);
+            continue;
+        }
+    }
+}
+
 }
 
 #endif

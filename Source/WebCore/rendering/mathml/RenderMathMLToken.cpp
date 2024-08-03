@@ -573,10 +573,7 @@ void RenderMathMLToken::layoutBlock(bool relayoutChildren, LayoutUnit pageLogica
 {
     ASSERT(needsLayout());
 
-    for (auto& box : childrenOfType<RenderBox>(*this)) {
-        if (box.isOutOfFlowPositioned())
-            box.containingBlock()->insertPositionedObject(box);
-    }
+    insertPositionedChildrenInContainingBlock();
 
     if (!relayoutChildren && simplifiedLayout())
         return;

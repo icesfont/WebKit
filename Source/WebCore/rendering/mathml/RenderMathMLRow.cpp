@@ -78,6 +78,8 @@ static RenderMathMLOperator* toVerticalStretchyOperator(RenderBox* box)
 
 void RenderMathMLRow::stretchVerticalOperatorsAndLayoutChildren()
 {
+    insertPositionedChildrenInContainingBlock();
+
     // First calculate stretch ascent and descent.
     LayoutUnit stretchAscent, stretchDescent;
     for (auto* child = firstChildBox(); child; child = child->nextSiblingBox()) {

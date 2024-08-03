@@ -93,6 +93,7 @@ void RenderMathMLPadded::layoutBlock(bool relayoutChildren, LayoutUnit)
 
     recomputeLogicalWidth();
     computeAndSetBlockDirectionMarginsOfChildren();
+    insertPositionedChildrenInContainingBlock();
 
     // We first layout our children as a normal <mrow> element.
     LayoutUnit contentWidth, contentAscent, contentDescent;
@@ -122,8 +123,9 @@ void RenderMathMLPadded::layoutBlock(bool relayoutChildren, LayoutUnit)
 std::optional<LayoutUnit> RenderMathMLPadded::firstLineBaseline() const
 {
     // We try and calculate the baseline from the position of the first child.
+    // TODO: needs assert to make sure that firstInFlowChildBox() exists?
     LayoutUnit ascent;
-    if (auto* baselineChild = firstChildBox())
+    if (auto* baselineChild = firstInFlowChildBox())
         ascent = ascentForChild(*baselineChild) + baselineChild->logicalTop() + voffset();
     else
         ascent = mpaddedHeight(0);
